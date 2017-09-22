@@ -10,16 +10,12 @@ region_commpilation=${region}
 zone=$(gcloud config get-value compute/zone 2>/dev/null)
 zone_compilation=${zone}
 
-terraform plan \
-  -var network=${network} \
-  -var project_id=${project_id} \
-  -var network_project_id=${network_project_id} \
-  -var region=${region} \
-  -var region_compilation=${region_compilation} \
-  -var zone=${zone} \
-  -var zone_compilation=${zone_compilation}
+if [[ ! -d ".terraform/plugins" ]]
+then
+    terraform init
+fi
 
-terraform apply \
+terraform delete \
   -var network=${network} \
   -var project_id=${project_id} \
   -var network_project_id=${network_project_id} \
