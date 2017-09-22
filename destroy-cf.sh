@@ -15,7 +15,7 @@ then
     terraform init
 fi
 
-terraform delete \
+terraform destroy \
   -var network=${network} \
   -var project_id=${project_id} \
   -var network_project_id=${network_project_id} \
