@@ -9,6 +9,6 @@ cd cloudfoundry-on-gcp/
 git submodule update -i
 bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
 bosh upload-release https://storage.googleapis.com/bosh-gcp/beta/stackdriver-tools/latest.tgz -n
-bosh ucc bosh-config/cloud-config/yml -n
+bosh ucc bosh-config/cloud-config.yml -n
 bosh urc bosh-config/runtime-config.yml -n
 ```
