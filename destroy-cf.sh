@@ -12,7 +12,7 @@ cd terraform
 
 terraform get -update=true
 
-if [[ ! -d ".terraform/plugins" ]]
+if [[ ! -d ".terraform/plugins" ]] | [[ -e "backend.tf" ]]
 then
     terraform init
 fi
