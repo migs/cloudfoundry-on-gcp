@@ -2,6 +2,10 @@
 
 THIS IS A WORK IN PROGRESS!
 
+## Pre-Requisites
+
+1. You have a bosh-bastion set up using [link](github.com/finkit/bosh-on-gcp)
+
 ## Fresh bosh-bastion steps
 
 ```
