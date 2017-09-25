@@ -1,3 +1,0 @@
-bosh-google-cpi-release/docs/cloudfoundry/.terraform/*
-bosh-google-cpi-release/docs/cloudfoundry/*.tfstate
-bosh-google-cpi-release/docs/cloudfoundry/*.tfstate.backup
