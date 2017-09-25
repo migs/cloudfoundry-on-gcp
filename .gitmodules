@@ -1,3 +1,6 @@
 [submodule "bosh-google-cpi-release"]
 	path = bosh-google-cpi-release
 	url = https://github.com/cloudfoundry-incubator/bosh-google-cpi-release
+[submodule "bosh-scripts"]
+	path = bosh-scripts
+	url = https://github.com/migs/bosh-scripts
