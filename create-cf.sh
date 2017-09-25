@@ -8,6 +8,8 @@ region_commpilation=${region}
 zone=$(gcloud config get-value compute/zone 2>/dev/null)
 zone_compilation=${zone}
 
+cd terraform
+
 terraform get -update=true
 
 if [[ ! -d ".terraform/plugins" ]]
