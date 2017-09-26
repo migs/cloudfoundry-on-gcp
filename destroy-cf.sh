@@ -8,6 +8,15 @@ region_commpilation=${region}
 zone=$(gcloud config get-value compute/zone 2>/dev/null)
 zone_compilation=${zone}
 
+# This command is destructive, so we force the user to specify the project
+if [[ -z ${1} ]]
+then
+    echo "Usage: $0 project"
+    exit 1
+else
+    project_id=${1}
+fi
+
 cd terraform
 
 terraform get -update=true
