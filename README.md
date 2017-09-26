@@ -10,7 +10,7 @@ THIS IS A WORK IN PROGRESS!
 
 ```
 eval `ssh-agent -s`
-'/home/vagrant/.ssh/id_rsa'
+ssh-add '/home/vagrant/.ssh/id_rsa'
 . ./create-bosh-director.sh
 git clone git@github.com:migs/cloudfoundry-on-gcp.git
 cd cloudfoundry-on-gcp/
