@@ -3,3 +3,4 @@
 terraform.tfstate*
 .terraform.tfstate.lock.info
 *.key.json
+manifest.yml

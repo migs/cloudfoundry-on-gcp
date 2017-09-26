@@ -1,3 +1,3 @@
-[submodule "cf-release"]
-	path = cf-release
-	url = https://github.com/cloudfoundry/cf-deployment.git
+[submodule "bosh-google-cpi-release"]
+	path = bosh-google-cpi-release
+	url = https://github.com/cloudfoundry-incubator/bosh-google-cpi-release/
