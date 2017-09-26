@@ -26,7 +26,9 @@ cd cloudfoundry-on-gcp/
 
 This will destroy your whole cloud foundry deployment, and everything within it. Proceed with caution!
 
+You need to enter the project name as an argument, to make sure you are nuking the cprrect project.
+
 
 ```
-./destroy-cf.sh
+./destroy-cf.sh projectname
 ```
