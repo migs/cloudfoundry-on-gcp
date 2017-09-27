@@ -2,6 +2,9 @@
 
 THIS IS A WORK IN PROGRESS!
 
+
+This repo is primarily for my own personal use, but feel free to make use of it.
+
 ## Pre-Requisites
 
 1. You have a bosh-bastion set up using [github.com/finkit/bosh-on-gcp](https://www.github.com/finkit/bosh-on-gcp)
@@ -9,9 +12,12 @@ THIS IS A WORK IN PROGRESS!
 ## Fresh bosh-bastion steps
 
 ```
+. ./create-bosh-director.sh
 eval `ssh-agent -s`
 ssh-add '/home/vagrant/.ssh/id_rsa'
-. ./create-bosh-director.sh
+git config --global user.name "Stuart Moore"
+git config --global user.email "stuart.moore@gmail.com"
+git config --global push.default simple
 git clone git@github.com:migs/cloudfoundry-on-gcp.git
 cd cloudfoundry-on-gcp/
 ```
