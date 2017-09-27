@@ -1,7 +1,0 @@
----
-- type: replace
-  path: /jobs/name=diego-cell/instances
-  value: 1
-- type: replace
-  path: /compilation/workers
-  value: 5

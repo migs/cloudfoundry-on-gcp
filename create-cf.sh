@@ -1,19 +1,29 @@
 #!/usr/bin/env bash
 
+CF_SYSTEM_DOMAIN="cf.domain.com"
+CF_STEMCELL_VERSION=$(grep -A3 stemcells cf-deployment/cf-deployment.yml | grep version | awk -F \" '{print $2}')
+CF_DEPLOYMENT_VERSION=v0.27.0
+
 # Terraform variables
 export network=bosh
 export project_id=$(gcloud config get-value project 2>/dev/null)
 export network_project_id=${project_id}
 export region=$(gcloud config get-value compute/region 2>/dev/null)
-export region_compilation=europe-west1
+export region_compilation=${region}
+#export region_compilation=europe-west1
 export zone=$(gcloud config get-value compute/zone 2>/dev/null)
-export zone_compilation=europe-west1-d
+export zone_compilation=${zone}
+#export zone_compilation=europe-west1-d
 
 #Bosh variables
 export service_account="cf-component"
 export service_account_email="${service_account}@${project_id}.iam.gserviceaccount.com"
 
-git submodule update -i
+cd cf-deployment
+git checkout master
+git pull
+git checkout $CF_DEPLOYMENT_VERSION
+cd -
 
 cd terraform
 
@@ -68,7 +78,19 @@ fi
 
 cd ..
 
-bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
+bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=${CF_STEMCELL_VERSION}
 bosh upload-release https://storage.googleapis.com/bosh-gcp/beta/stackdriver-tools/latest.tgz -n
-bosh ucc bosh-config/cloud-config.yml -n
-bosh urc bosh-config/runtime-config.yml -n
+bosh ucc config/cloud-config.yml -n
+bosh urc config/runtime-config.yml -n
+
+bosh int cf-deployment/cf-deployment.yml \
+    --vars-store config/cf-deployment-vars.yml \
+    --var-errs \
+    --var-errs-unused \
+    -v system_domain=${CF_SYSTEM_DOMAIN} \
+    -o cf-deployment/operations/gcp.yml
+
+bosh -d cf deploy cf-deployment/cf-deployment.yml \
+    --vars-store config/cf-deployment-vars.yml \
+    -v system_domain=${CF_SYSTEM_DOMAIN} \
+    -o cf-deployment/operations/gcp.yml
