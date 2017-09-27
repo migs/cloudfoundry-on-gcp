@@ -68,15 +68,7 @@ fi
 
 cd ..
 
-erb bosh-google-cpi-release/docs/cloudfoundry/manifest.yml.erb > manifest.yml
 bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent
 bosh upload-release https://storage.googleapis.com/bosh-gcp/beta/stackdriver-tools/latest.tgz -n
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry/cf-mysql-release?v=23
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release?v=0.340.0
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release?v=43
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry-incubator/diego-release?v=0.1463.0
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry/cf-release?v=249
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry-incubator/cf-routing-release?v=0.142.0
 bosh ucc bosh-config/cloud-config.yml -n
 bosh urc bosh-config/runtime-config.yml -n
-bosh deploy -d cf manifest.yml -n -o cf-config/nano.yml
