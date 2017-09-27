@@ -2,12 +2,15 @@
 
 THIS IS A WORK IN PROGRESS!
 
-
 This repo is primarily for my own personal use, but feel free to make use of it.
 
 ## Pre-Requisites
 
 1. You have a bosh-bastion set up using [github.com/finkit/bosh-on-gcp](https://www.github.com/finkit/bosh-on-gcp)
+
+## Default Configuration
+
+1. All VMs are configured to be preemptible, so a VM can be destroyed at any given moment. This is for testing purposes, obviously.
 
 ## Fresh bosh-bastion steps
 
