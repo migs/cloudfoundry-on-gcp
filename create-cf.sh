@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CF_SYSTEM_DOMAIN="cf.domain.com"
+CF_SYSTEM_DOMAIN="cf.roflnet.co.uk"
 CF_STEMCELL_VERSION=$(grep -A3 stemcells cf-deployment/cf-deployment.yml | grep version | awk -F \" '{print $2}')
 CF_DEPLOYMENT_VERSION=v0.27.0
 
@@ -9,11 +9,11 @@ export network=bosh
 export project_id=$(gcloud config get-value project 2>/dev/null)
 export network_project_id=${project_id}
 export region=$(gcloud config get-value compute/region 2>/dev/null)
-export region_compilation=${region}
-#export region_compilation=europe-west1
+#export region_compilation=${region}
+export region_compilation=europe-west1
 export zone=$(gcloud config get-value compute/zone 2>/dev/null)
-export zone_compilation=${zone}
-#export zone_compilation=europe-west1-d
+#export zone_compilation=${zone}
+export zone_compilation=europe-west1-d
 
 #Bosh variables
 export service_account="cf-component"
@@ -52,16 +52,16 @@ terraform apply \
   -var zone=${zone} \
   -var zone_compilation=${zone_compilation}
 
-export vip=$(terraform output ip)
-export tcp_vip=$(terraform output tcp_ip)
-export zone=$(terraform output zone)
-export zone_compilation=$(terraform output zone_compilation)
-export region=$(terraform output region)
-export region_compilation=$(terraform output region_compilation)
-export private_subnet=$(terraform output private_subnet)
-export compilation_subnet=$(terraform output compilation_subnet)
-export network=$(terraform output network)
-export director=$(bosh env | sed -n 2p)
+#export vip=$(terraform output ip)
+#export tcp_vip=$(terraform output tcp_ip)
+#export zone=$(terraform output zone)
+#export zone_compilation=$(terraform output zone_compilation)
+#export region=$(terraform output region)
+#export region_compilation=$(terraform output region_compilation)
+#export private_subnet=$(terraform output private_subnet)
+#export compilation_subnet=$(terraform output compilation_subnet)
+#export network=$(terraform output network)
+#export director=$(bosh env | sed -n 2p)
 
 # Set up GCP service account
 if [[ ! $(gcloud iam service-accounts list | grep ${service_account_email}) ]]
@@ -90,7 +90,7 @@ bosh int cf-deployment/cf-deployment.yml \
     -v system_domain=${CF_SYSTEM_DOMAIN} \
     -o cf-deployment/operations/gcp.yml
 
-bosh -d cf deploy cf-deployment/cf-deployment.yml \
+bosh -d cf deploy cf-deployment/cf-deployment.yml -n \
     --vars-store config/cf-deployment-vars.yml \
     -v system_domain=${CF_SYSTEM_DOMAIN} \
     -o cf-deployment/operations/gcp.yml

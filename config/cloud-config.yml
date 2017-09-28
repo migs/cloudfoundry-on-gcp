@@ -5,6 +5,12 @@ azs:
   cloud_properties: {zone: europe-west2-b}
 - name: z3
   cloud_properties: {zone: europe-west2-c}
+- name: z4
+  cloud_properties: {zone: europe-west1-b}
+- name: z5
+  cloud_properties: {zone: europe-west1-c}
+- name: z6
+  cloud_properties: {zone: europe-west1-d}
 
 
 vm_types:
@@ -165,16 +171,13 @@ networks:
 - name: default
   type: manual
   subnets:
-  - range: 10.20.0.0/24
-    gateway: 10.20.0.1
+  - range: 192.168.0.0/16
+    gateway: 192.168.0.1
     azs:
     - z1
     - z2
     - z3
     dns: [8.8.8.8, 8.8.4.4]
-    static:
-    - 10.20.0.10
-    - 10.20.0.11
     cloud_properties:
       ephemeral_external_ip: false
       network_name: bosh
@@ -186,7 +189,9 @@ networks:
   - range: 10.200.0.0/24
     gateway: 10.200.0.1
     azs:
-    - z1
+    - z4
+    - z5
+    - z6
     dns: [8.8.8.8, 8.8.4.4]
     cloud_properties:
       ephemeral_external_ip: false
@@ -200,6 +205,8 @@ networks:
     gateway: 10.30.0.1
     azs:
     - z1
+    - z2
+    - z3
     dns: [8.8.8.8, 8.8.4.4]
     cloud_properties:
       ephemeral_external_ip: false
@@ -224,7 +231,7 @@ networks:
       tags: [cf-internal, no-ip]
 
 compilation:
-  workers: 2
+  workers: 5
   reuse_compilation_vms: true
   az: z1
   vm_type: compilation
