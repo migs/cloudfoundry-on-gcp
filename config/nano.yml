@@ -1,0 +1,22 @@
+---
+- type: replace
+  path: /instance_groups/name=consul/instances
+  value: 1
+- type: replace
+  path: /instance_groups/name=diego-cell/instances
+  value: 1
+- type: replace
+  path: /instance_groups/name=diego-cell/vm_type
+  value: minimal
+- type: replace
+  path: /instance_groups/name=diego-brain/instances
+  value: 1
+- type: replace
+  path: /instance_groups/name=doppler/instances
+  value: 1
+- type: replace
+  path: /instance_groups/name=mysql/vm_type
+  value: minimal 
+- type: replace
+  path: /instance_groups/name=nats/instances
+  value: 1

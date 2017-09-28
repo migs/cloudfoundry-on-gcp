@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 CF_SYSTEM_DOMAIN="cf.roflnet.co.uk"
-CF_STEMCELL_VERSION=$(grep -A3 stemcells cf-deployment/cf-deployment.yml | grep version | awk -F \" '{print $2}')
 CF_DEPLOYMENT_VERSION=v0.27.0
 
 # Terraform variables
@@ -19,11 +18,15 @@ export zone_compilation=europe-west1-d
 export service_account="cf-component"
 export service_account_email="${service_account}@${project_id}.iam.gserviceaccount.com"
 
+git submodule update -i
+
 cd cf-deployment
 git checkout master
 git pull
 git checkout $CF_DEPLOYMENT_VERSION
 cd -
+
+CF_STEMCELL_VERSION=$(grep -A3 stemcells cf-deployment/cf-deployment.yml | grep version | awk -F \" '{print $2}')
 
 cd terraform
 
@@ -83,14 +86,15 @@ bosh upload-release https://storage.googleapis.com/bosh-gcp/beta/stackdriver-too
 bosh ucc config/cloud-config.yml -n
 bosh urc config/runtime-config.yml -n
 
-bosh int cf-deployment/cf-deployment.yml \
-    --vars-store config/cf-deployment-vars.yml \
-    --var-errs \
-    --var-errs-unused \
-    -v system_domain=${CF_SYSTEM_DOMAIN} \
-    -o cf-deployment/operations/gcp.yml
+#bosh int cf-deployment/cf-deployment.yml \
+#    --vars-store config/cf-deployment-vars.yml \
+#    --var-errs \
+#    --var-errs-unused \
+#    -v system_domain=${CF_SYSTEM_DOMAIN} \
+#    -o cf-deployment/operations/gcp.yml
 
 bosh -d cf deploy cf-deployment/cf-deployment.yml -n \
     --vars-store config/cf-deployment-vars.yml \
     -v system_domain=${CF_SYSTEM_DOMAIN} \
+    -o config/nano.yml \
     -o cf-deployment/operations/gcp.yml

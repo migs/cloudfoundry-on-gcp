@@ -196,7 +196,7 @@ networks:
     cloud_properties:
       ephemeral_external_ip: false
       network_name: bosh
-      subnetwork_name: cf-compilation-europe-west2
+      subnetwork_name: cf-compilation-europe-west1
       tags: [internal, cf-internal, no-ip]
 - name: services
   type: manual
@@ -233,7 +233,7 @@ networks:
 compilation:
   workers: 5
   reuse_compilation_vms: true
-  az: z1
+  az: z4
   vm_type: compilation
   network: compilation
 
